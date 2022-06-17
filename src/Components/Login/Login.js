@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Card from "../UI/Card";
 import Button from "../UI/Button";
@@ -10,15 +10,19 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [passwordValid, setPasswordValid] = useState(true);
   const [formIsValid, setFormIsValid] = useState(false);
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log("Check form validity");
+      setFormIsValid(mail.includes("@") && password.trim().length > 6);
+    }, 500);
+    return () => {
+      console.log("Clear");
+      clearTimeout(identifier);
+    };
+  }, [mail, password]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // const user = { mail: mail, password: password };
-    // if (password.trim().length <= 7) {
-    //   alert("Invalid length of mail");
-    //   return;
-    // }
-
     props.onLogin(mail, password);
     console.log({ mail: mail, password: password });
     setMail("");
@@ -26,11 +30,11 @@ const Login = (props) => {
   };
   const mailChangeHandler = (e) => {
     setMail(e.target.value);
-    setFormIsValid(e.target.value.includes("@") && password.trim().length > 6);
+    // setFormIsValid(e.target.value.includes("@") && password.trim().length > 6);
   };
   const passwordChangeHandler = (e) => {
     setPassword(e.target.value);
-    setFormIsValid(e.target.value.trim().length > 6 && mail.includes("@"));
+    // setFormIsValid(e.target.value.trim().length > 6 && mail.includes("@"));
   };
   const validateMailHandler = () => {
     setMailIsValid(mail.includes("@"));

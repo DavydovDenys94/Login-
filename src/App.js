@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Login from "./Components/Login/Login";
 import MainHeader from "./Components/MainHeader/MainHeader";
@@ -7,10 +7,19 @@ import "./App.css";
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
-  const logOn = () => {
+  useEffect(() => {
+    const storedUserLogInInformation = localStorage.getItem("isLoggedIn");
+    if (storedUserLogInInformation === "1") {
+      setIsLogged(true);
+    }
+  }, []);
+
+  const logOn = (mail, password) => {
+    localStorage.setItem("isLoggedIn", "1");
     setIsLogged(true);
   };
   const logOutHandler = () => {
+    localStorage.removeItem("isLoggedIn");
     setIsLogged(false);
   };
   return (
