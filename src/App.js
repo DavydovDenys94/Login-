@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Login from "./Components/Login/Login";
 import MainHeader from "./Components/MainHeader/MainHeader";
+import Clock from "./Components/Login/Clock";
 import Home from "./Components/Home/Home";
 import "./App.css";
 
@@ -30,6 +31,9 @@ function App() {
       <div>
         {!isLogged && <Login onLogin={logOn} />}
         {isLogged && <Home />}
+      </div>
+      <div>
+        <Clock />
       </div>
     </div>
   );
